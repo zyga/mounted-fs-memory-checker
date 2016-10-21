@@ -6,6 +6,8 @@ if [ "$(id -u)" -ne 0 ]; then
 	exit 1
 fi
 
+N=128
+
 rm -f slabinfo.*
 rm -f slabtop.*
 umount mnt-* || :
@@ -15,7 +17,7 @@ slabtop --once > slabtop.initial
 
 for payload in hello-world snapd-hacker-toolbelt; do
 	for fs in vfat ext4; do
-		for i in $(seq 15); do
+		for i in $(seq $N); do
 			mkdir -p "mnt-$i"
 			mount -o ro "payload/payload.$payload.$fs" "mnt-$i"
 			cat /proc/slabinfo > "slabinfo.$payload.$fs.$i"
@@ -25,11 +27,11 @@ for payload in hello-world snapd-hacker-toolbelt; do
 	done
 	# squashfs
 	for comp in gzip lz4 lzo xz; do 
-		for i in $(seq 15); do
+		for i in $(seq $N); do
 			mkdir -p "mnt-$i"
 			mount -o ro "payload/payload.$payload.$comp.snap" "mnt-$i"
-			cat /proc/slabinfo > "slabinfo.$payload.$comp.$i"
-			slabtop --once > "slabtop.$payload.$comp.$i"
+			cat /proc/slabinfo > "slabinfo.$payload.squashfs.$comp.$i"
+			slabtop --once > "slabtop.$payload.squashfs.$comp.$i"
 		done
 		umount mnt-* || :
 	done

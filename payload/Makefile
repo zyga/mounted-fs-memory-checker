@@ -1,20 +1,25 @@
 .PHONY: all
 all: $(foreach name,hello-world snapd-hacker-toolbelt,$(foreach fs,ext4 vfat,payload.$(name).$(fs)) $(foreach comp,gzip lzma lzo lz4 xz,payload.$(name).$(comp).snap))
 
+# default block size is 131072
+blocksize=8K
+# minimum dict size is 8K
+dictsize=8K
+
 payload.%.gzip.snap: Makefile
-	mksquashfs $*/ $@ -noappend -comp gzip -b 131072 -no-xattrs -no-progress
+	mksquashfs $*/ $@ -noappend -comp gzip -b $(blocksize) -no-xattrs -no-progress
 
 payload.%.lzma.snap: Makefile
-	mksquashfs $*/ $@ -noappend -comp lzma -b 131072 -no-xattrs -no-progress
+	mksquashfs $*/ $@ -noappend -comp lzma -b $(blocksize) -no-xattrs -no-progress
 
 payload.%.lzo.snap: Makefile
-	mksquashfs $*/ $@ -noappend -comp lzo -b 131072 -no-xattrs -no-progress
+	mksquashfs $*/ $@ -noappend -comp lzo -b $(blocksize) -no-xattrs -no-progress
 
 payload.%.lz4.snap: Makefile
-	mksquashfs $*/ $@ -noappend -comp lz4 -b 131072 -no-xattrs -no-progress
+	mksquashfs $*/ $@ -noappend -comp lz4 -b $(blocksize) -no-xattrs -no-progress
 
 payload.%.xz.snap: Makefile
-	mksquashfs $*/ $@ -noappend -comp xz -b 131072 -no-xattrs -no-progress
+	mksquashfs $*/ $@ -noappend -comp xz -b $(blocksize) -Xdict-size $(dictsize) -Xbcj x86 -no-xattrs -no-progress
 
 payload.%.vfat: Makefile
 	dd if=/dev/zero of=$@ bs=1M count=16
