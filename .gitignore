@@ -1,0 +1,5 @@
+*.snap
+*.vfat
+*.ext4
+slabtop.*
+slabinfo.*

@@ -1,0 +1,20 @@
+apps:
+  busybox:
+    command: command-busybox.wrapper
+    plugs:
+    - mount-observe
+    - log-observe
+    - opengl
+architectures:
+- amd64
+confinement: strict
+description: 'Right now this package contains just busybox which is the statically-linked
+
+  busybox executable. Over time more executables can join the pack, each one,
+
+  hopefully bringing something valuable.
+
+  '
+name: snapd-hacker-toolbelt
+summary: Collection of tools useful for developers hacking on snapd
+version: 0.6
