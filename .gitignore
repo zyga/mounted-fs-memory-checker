@@ -1,5 +1,7 @@
-*.snap
+*.squashfs
 *.vfat
 *.ext4
 slabtop.*
 slabinfo.*
+payload/size-*m/
+payload/*/content
