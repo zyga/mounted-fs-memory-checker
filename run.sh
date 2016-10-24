@@ -21,6 +21,7 @@ slabtop --once > slabtop.initial
 
 for payload in size-0m size-1m size-1024m; do
 	for fs in vfat ext4; do
+        echo 1 > /proc/sys/vm/drop_caches
 		for i in $(seq $N); do
 			mkdir -p "mnt-$i"
 			mount -o ro "../../../payload/payload.$payload.$fs" "mnt-$i"
@@ -31,6 +32,7 @@ for payload in size-0m size-1m size-1024m; do
 	done
 	# squashfs
 	for comp in gzip lz4 lzo xz.smallest xz.default xz.128k; do
+        echo 1 > /proc/sys/vm/drop_caches
 		for i in $(seq $N); do
 			mkdir -p "mnt-$i"
 			mount -o ro "../../../payload/payload.$payload.$comp.squashfs" "mnt-$i"
