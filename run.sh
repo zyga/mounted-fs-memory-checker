@@ -30,7 +30,7 @@ for payload in size-0m size-1m size-1024m; do
 		umount $(echo mnt-* | sort) || :
 	done
 	# squashfs
-	for comp in gzip lz4 lzo xz.smallest xz.default; do 
+	for comp in gzip lz4 lzo xz.smallest xz.default xz.128k; do
 		for i in $(seq $N); do
 			mkdir -p "mnt-$i"
 			mount -o ro "../../../payload/payload.$payload.$comp.squashfs" "mnt-$i"
