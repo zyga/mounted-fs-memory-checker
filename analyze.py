@@ -72,9 +72,11 @@ def main():
     parser.add_argument("id")
     parser.add_argument("version_id")
     parser.add_argument("kernel_ver")
+    parser.add_argument("cpu_count")
     parser.add_argument("trace_name")
     ns = parser.parse_args()
-    dirname = os.path.join("traces", ns.id, ns.version_id, ns.kernel_ver)
+    dirname = os.path.join("traces", ns.id, ns.version_id, ns.kernel_ver,
+                           "ncpus-{}".format(ns.cpu_count))
     initial_fname = os.path.join(dirname, 'slabinfo.initial')
     with open(initial_fname, encoding='ascii') as stream:
         initial = slabinfo.from_stream(stream)
