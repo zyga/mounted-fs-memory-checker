@@ -15,7 +15,7 @@ cd "traces/$ID/$VERSION_ID/$(uname -r)"
 rm -f slabinfo.*
 rm -f slabtop.*
 umount $(echo mnt-* | sort) || :
-rmdir mnt-*
+rmdir mnt-* || :
 
 echo 1 > /proc/sys/vm/drop_caches
 cat /proc/slabinfo > slabinfo.initial
