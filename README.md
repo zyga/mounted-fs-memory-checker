@@ -32,11 +32,11 @@ and type of the filesystem.
 
 The variants can be enumerated by expanding this shell expression:
 
-`size-{0,1,1024}m.{ext4,vfat,{gzip,lz4,lzma,xz.{smallest,default,128k}}.squashfs}`
+`size-{0,1,1024}m.{ext4,vfat,squashfs.{gzip,lz4,lzma,xz.{smallest,default,128k}}}`
 
 For example:
 
-`./analyze.py ubuntu 16.04 size-1m.xz.default.squashfs`
+`./analyze.py ubuntu 16.04 size-1m.squashfs.xz.default`
 
 The output is a sequence of rows, each row consisting of the number of mounted
 filesystems, the amount of consumed memory (against baseline) and the delta
