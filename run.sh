@@ -21,7 +21,7 @@ echo 1 > /proc/sys/vm/drop_caches
 cat /proc/slabinfo > slabinfo.initial
 slabtop --once > slabtop.initial
 
-for payload in size-0m size-1m size-1024m; do
+for payload in size-0m size-1m; do
 	for fs in vfat ext4; do
         echo 1 > /proc/sys/vm/drop_caches
 		for i in $(seq $N); do
