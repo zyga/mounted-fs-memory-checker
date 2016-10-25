@@ -7,3 +7,4 @@ variant=size-1m.squashfs.xz.heavy
 ./analyze.py ubuntu 16.04 4.4.0-45-generic 4 $variant
 ./analyze.py ubuntu 16.10 4.8.0-26-generic 1 $variant
 ./analyze.py opensuse 42.1 4.1.34-33-default 1 $variant
+./analyze.py opensuse 42.1 4.1.34-33-default 4 $variant
