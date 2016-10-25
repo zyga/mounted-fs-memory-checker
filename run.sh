@@ -6,7 +6,7 @@ if [ "$(id -u)" -ne 0 ]; then
 	exit 1
 fi
 
-N=16
+N=512
 
 . /etc/os-release
 mkdir -p "traces/$ID/$VERSION_ID"
