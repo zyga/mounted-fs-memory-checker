@@ -32,7 +32,7 @@ and type of the filesystem.
 
 The variants can be enumerated by expanding this shell expression:
 
-`size-{0,1,1024}m.{ext4,vfat,squashfs.{gzip,lz4,lzma,xz.{smallest,default,128k}}}`
+`size-{0,1,1024}m.{ext4,vfat,squashfs.{gzip,lz4,lzma,xz.{smallest,default,128k,heavy}}}`
 
 For example:
 

@@ -31,7 +31,7 @@ for payload in size-0m size-1m size-1024m; do
 		umount $(echo mnt-* | sort) || :
 	done
 	# squashfs
-	for comp in gzip lz4 lzo xz.smallest xz.default xz.128k; do
+	for comp in gzip lz4 lzo xz.smallest xz.default xz.128k xz.heavy; do
         echo 1 > /proc/sys/vm/drop_caches
 		for i in $(seq $N); do
 			mkdir -p "mnt-$i"

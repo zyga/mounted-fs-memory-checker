@@ -3,7 +3,7 @@ inputs = size-0m size-1m size-1024m
 # various filesystems other than squashfs
 variants += $(foreach name,$(inputs),$(foreach fs,ext4 vfat,payload.$(name).$(fs))) 
 # several variants of xz compression for squashfs
-variants += $(foreach name,$(inputs),$(foreach tweak,default smallest 128k,payload.$(name).xz.$(tweak).squashfs))
+variants += $(foreach name,$(inputs),$(foreach tweak,default smallest 128k heavy,payload.$(name).xz.$(tweak).squashfs))
 # other compression types for squashfs
 variants += $(foreach name,$(inputs),$(foreach comp,gzip lzma lzo lz4,payload.$(name).$(comp).squashfs))
 all: $(variants)
@@ -51,6 +51,9 @@ payload.%.xz.smallest.squashfs: Makefile size-0m/content size-1m/content size-10
 
 payload.%.xz.128k.squashfs: Makefile size-0m/content size-1m/content size-1024m/content
 	mksquashfs $*/ $@ -noappend -comp xz -b 131072 -no-xattrs -no-progress
+
+payload.%.xz.heavy.squashfs: Makefile size-0m/content size-1m/content size-1024m/content
+	mksquashfs $*/ $@ -noappend -comp xz -b 1M -Xdict-size 100% -no-xattrs -no-progress
 
 payload.%.vfat: Makefile size-0m/content size-1m/content size-1024m/content
 	dd if=/dev/zero of=$@ bs=1M count=1026
