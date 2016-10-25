@@ -53,3 +53,18 @@ a sanity check should the custom calculations be totally wrong.
 
 Memory usage is estimated by summing all the slabs and the number of objects
 therein (`num_objs * objsize` in slabinfo parlance).
+
+# Overview
+
+For an instant "aha" moment please run the `overview.sh` script.
+
+## Analysis
+
+It seems that Fedora 24 uses a single CPU decompressor for squashfs while
+Ubuntu 16.04 and Ubuntu 16.10 use a multi-threaded, per CPU decodeer. Due to
+this, on Fedora, the memory usage is not affected by the number of available
+CPUs. On Ubuntu the situation is more interesting. There are dramatic memory
+differences between a single core and a 4-core system running Ubuntu 16.04.
+Unlike what might be expected a single-CPU system users 17 times more memory
+for each mounted squashfs file. The reason for this not yet clear and more
+reasearch is ongoing.
