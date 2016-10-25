@@ -21,14 +21,16 @@ This step is one-off unless you add additional filesystem variants.
 
 Run `sudo ./run.sh` and sit back. This is fully automated. You may want to do
 it outside of a running desktop session as software may get somewhat crazy when
-lots of things are mounted (the test goes up to 512 mount points).
+lots of things are mounted (the test goes up to 4 mount points).
 
 The process will end up dumping lots of data to the `trace/` directory. There
-will be sub-directories for the operating system ID and version.
+will be sub-directories for the operating system ID and version and for the
+kernel version.
 
-To analyze those traces run `./analyze ID VERSION_ID variant`. The first two
-arguments come from the `/etc/os-release` file. The last one encodes the size
-and type of the filesystem.
+To analyze those traces run `./analyze ID VERSION_ID kernel variant`. The first
+two arguments come from the `/etc/os-release` file. The kernel version can be
+obtained from `uname -r`. The last argument encodes the size and type of the
+filesystem.
 
 The variants can be enumerated by expanding this shell expression:
 
@@ -36,7 +38,7 @@ The variants can be enumerated by expanding this shell expression:
 
 For example:
 
-`./analyze.py ubuntu 16.04 size-1m.squashfs.xz.default`
+`./analyze.py ubuntu 16.04 4.4.0-45-generic size-1m.squashfs.xz.default`
 
 The output is a sequence of rows, each row consisting of the number of mounted
 filesystems, the amount of consumed memory (against baseline) and the delta

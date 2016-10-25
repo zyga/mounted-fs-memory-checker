@@ -9,12 +9,13 @@ fi
 N=4
 
 . /etc/os-release
-mkdir -p "traces/$ID/$VERSION_ID"
-cd "traces/$ID/$VERSION_ID"
+mkdir -p "traces/$ID/$VERSION_ID/$(uname -r)"
+cd "traces/$ID/$VERSION_ID/$(uname -r)"
 
 rm -f slabinfo.*
 rm -f slabtop.*
 umount $(echo mnt-* | sort) || :
+rmdir mnt-*
 
 echo 1 > /proc/sys/vm/drop_caches
 cat /proc/slabinfo > slabinfo.initial
@@ -25,22 +26,24 @@ for payload in size-0m size-1m size-1024m; do
         echo 1 > /proc/sys/vm/drop_caches
 		for i in $(seq $N); do
 			mkdir -p "mnt-$i"
-			mount -o ro "../../../payload/payload.$payload.$fs" "mnt-$i"
+			mount -o ro "../../../../payload/payload.$payload.$fs" "mnt-$i"
 			cat /proc/slabinfo > "slabinfo.$payload.$fs.$i"
 			slabtop --once > "slabtop.$payload.$fs.$i"
 		done
-		umount $(echo mnt-* | sort) || :
+		sleep 10 # because some stuff likes to poke around
+		umount $(echo mnt-* | sort)
 	done
 	# squashfs
 	for comp in gzip lz4 lzo xz.smallest xz.default xz.128k xz.heavy; do
         echo 1 > /proc/sys/vm/drop_caches
 		for i in $(seq $N); do
 			mkdir -p "mnt-$i"
-			mount -o ro "../../../payload/payload.$payload.$comp.squashfs" "mnt-$i"
+			mount -o ro "../../../../payload/payload.$payload.$comp.squashfs" "mnt-$i"
 			cat /proc/slabinfo > "slabinfo.$payload.squashfs.$comp.$i"
 			slabtop --once > "slabtop.$payload.squashfs.$comp.$i"
 		done
-		umount $(echo mnt-* | sort) || :
+		sleep 10 # because some stuff likes to poke around
+		umount $(echo mnt-* | sort)
 	done
 done
 rmdir mnt-*
