@@ -16,6 +16,7 @@ rm -f slabinfo.*
 rm -f slabtop.*
 umount $(echo mnt-* | sort) || :
 
+echo 1 > /proc/sys/vm/drop_caches
 cat /proc/slabinfo > slabinfo.initial
 slabtop --once > slabtop.initial
 
