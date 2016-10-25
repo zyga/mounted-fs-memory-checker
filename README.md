@@ -27,9 +27,10 @@ The process will end up dumping lots of data to the `trace/` directory. There
 will be sub-directories for the operating system ID and version and for the
 kernel version.
 
-To analyze those traces run `./analyze ID VERSION_ID kernel variant`. The first
-two arguments come from the `/etc/os-release` file. The kernel version can be
-obtained from `uname -r`. The last argument encodes the size and type of the
+To analyze those traces run `./analyze ID VERSION_ID kernel cpu-count variant`.
+The first two arguments come from the `/etc/os-release` file. The kernel
+version can be obtained from `uname -r`. The number of CPUs must match the data
+that was collected. The last argument encodes the size and type of the
 filesystem.
 
 The variants can be enumerated by expanding this shell expression:
@@ -38,7 +39,7 @@ The variants can be enumerated by expanding this shell expression:
 
 For example:
 
-`./analyze.py ubuntu 16.04 4.4.0-45-generic size-1m.squashfs.xz.default`
+`./analyze.py ubuntu 16.04 4.4.0-45-generic 1 size-1m.squashfs.xz.default`
 
 The output is a sequence of rows, each row consisting of the number of mounted
 filesystems, the amount of consumed memory (against baseline) and the delta
