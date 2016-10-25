@@ -1,5 +1,5 @@
 .PHONY: all
-inputs = size-0m size-1m size-1024m
+inputs = size-0m size-1m
 # various filesystems other than squashfs
 variants += $(foreach name,$(inputs),$(foreach fs,ext4 vfat,payload.$(name).$(fs))) 
 # several variants of xz compression for squashfs
@@ -28,34 +28,34 @@ size-1024m/content: Makefile size-1m/content
 	fi;
 	touch $@
 
-payload.%.gzip.squashfs: Makefile size-0m/content size-1m/content size-1024m/content
+payload.%.gzip.squashfs: Makefile size-0m/content size-1m/content
 	mksquashfs $*/ $@ -noappend -comp gzip -b $(blocksize) -no-xattrs -no-progress
 
-payload.%.lzma.squashfs: Makefile size-0m/content size-1m/content size-1024m/content
+payload.%.lzma.squashfs: Makefile size-0m/content size-1m/content
 	mksquashfs $*/ $@ -noappend -comp lzma -b $(blocksize) -no-xattrs -no-progress
 
-payload.%.lzo.squashfs: Makefile size-0m/content size-1m/content size-1024m/content
+payload.%.lzo.squashfs: Makefile size-0m/content size-1m/content
 	mksquashfs $*/ $@ -noappend -comp lzo -b $(blocksize) -no-xattrs -no-progress
 
-payload.%.lz4.squashfs: Makefile size-0m/content size-1m/content size-1024m/content
+payload.%.lz4.squashfs: Makefile size-0m/content size-1m/content
 	mksquashfs $*/ $@ -noappend -comp lz4 -b $(blocksize) -no-xattrs -no-progress
 
-payload.%.xz.squashfs: Makefile size-0m/content size-1m/content size-1024m/content
+payload.%.xz.squashfs: Makefile size-0m/content size-1m/content
 	mksquashfs $*/ $@ -noappend -comp xz -b $(blocksize) -Xdict-size $(dictsize) -Xbcj x86 -no-xattrs -no-progress
 
-payload.%.xz.default.squashfs: Makefile size-0m/content size-1m/content size-1024m/content
+payload.%.xz.default.squashfs: Makefile size-0m/content size-1m/content
 	mksquashfs $*/ $@ -noappend -comp xz -no-xattrs -no-progress
 
-payload.%.xz.smallest.squashfs: Makefile size-0m/content size-1m/content size-1024m/content
+payload.%.xz.smallest.squashfs: Makefile size-0m/content size-1m/content
 	mksquashfs $*/ $@ -noappend -comp xz -b 8K -Xdict-size 8K -no-xattrs -no-progress
 
-payload.%.xz.128k.squashfs: Makefile size-0m/content size-1m/content size-1024m/content
+payload.%.xz.128k.squashfs: Makefile size-0m/content size-1m/content
 	mksquashfs $*/ $@ -noappend -comp xz -b 131072 -no-xattrs -no-progress
 
-payload.%.xz.heavy.squashfs: Makefile size-0m/content size-1m/content size-1024m/content
+payload.%.xz.heavy.squashfs: Makefile size-0m/content size-1m/content
 	mksquashfs $*/ $@ -noappend -comp xz -b 1M -Xdict-size 100% -no-xattrs -no-progress
 
-payload.%.vfat: Makefile size-0m/content size-1m/content size-1024m/content
+payload.%.vfat: Makefile size-0m/content size-1m/content
 	dd if=/dev/zero of=$@ bs=1M count=1026
 	mkfs.vfat $@
 	mkdir -p vfat-$*
@@ -64,7 +64,7 @@ payload.%.vfat: Makefile size-0m/content size-1m/content size-1024m/content
 	sudo umount vfat-$*
 	rmdir vfat-$*
 
-payload.%.ext4: Makefile size-0m/content size-1m/content size-1024m/content
+payload.%.ext4: Makefile size-0m/content size-1m/content
 	dd if=/dev/zero of=$@ bs=1M count=1224
 	mkfs.ext4 $@
 	mkdir -p ext4-$*
