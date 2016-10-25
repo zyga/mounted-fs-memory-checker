@@ -1,0 +1,4 @@
+name: size-1024m
+version: 1.0
+architectures: [ all ]
+summary: test snap with a gigabyte of data

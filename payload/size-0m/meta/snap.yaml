@@ -1,0 +1,4 @@
+name: size-0m 
+version: 1.0
+architectures: [ all ]
+summary: test snap without any data

@@ -1,0 +1,4 @@
+name: size-1m
+version: 1.0
+architectures: [ all ]
+summary: test snap with one megabyte of data inside
