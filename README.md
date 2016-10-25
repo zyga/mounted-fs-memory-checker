@@ -36,7 +36,7 @@ The variants can be enumerated by expanding this shell expression:
 
 For example:
 
-`./analyze ubuntu 16.04 size-1m.xz.default.squashfs`
+`./analyze.py ubuntu 16.04 size-1m.xz.default.squashfs`
 
 The output is a sequence of rows, each row consisting of the number of mounted
 filesystems, the amount of consumed memory (against baseline) and the delta
