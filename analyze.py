@@ -1,11 +1,14 @@
-#!/usr/bin/env python3
+if [ "$(which python3 2>/dev/null)" != "" ]; then exec python3 -x "$0" "$@"; else exec python -x "$0" "$@"; fi
+from __future__ import absolute_import, unicode_literals, print_function
+
 import argparse
 import glob
+import io
 import os
 import re
 
 
-class slabinfo:
+class slabinfo(object):
 
     def __init__(self, entries, version):
         self.entries = entries
@@ -33,7 +36,7 @@ class slabinfo:
         return cls(entries, version)
 
 
-class slabinfo_entry:
+class slabinfo_entry(object):
 
     def __init__(self, name, active_objs, num_objs, objsize):
         self.name = name
@@ -61,7 +64,7 @@ def collect_traces(dirname, name):
     infos = [None] * len(fnames)
     for fname in fnames:
         num = int(fname.rsplit(".")[-1]) - 1
-        with open(fname, encoding='ascii') as stream:
+        with io.open(fname, encoding='ascii') as stream:
             info = slabinfo.from_stream(stream)
         infos[num] = info
     return infos
@@ -78,7 +81,7 @@ def main():
     dirname = os.path.join("traces", ns.id, ns.version_id, ns.kernel_ver,
                            "ncpus-{}".format(ns.cpu_count))
     initial_fname = os.path.join(dirname, 'slabinfo.initial')
-    with open(initial_fname, encoding='ascii') as stream:
+    with io.open(initial_fname, encoding='ascii') as stream:
         initial = slabinfo.from_stream(stream)
     infos = collect_traces(dirname, ns.trace_name)
     initial_size = initial.total_size 
