@@ -1,0 +1,23 @@
+ Active / Total Objects (% used)    : 227019 / 246389 (92.1%)
+ Active / Total Slabs (% used)      : 4488 / 4488 (100.0%)
+ Active / Total Caches (% used)     : 79 / 121 (65.3%)
+ Active / Total Size (% used)       : 67159.55K / 72999.99K (92.0%)
+ Minimum / Average / Maximum Object : 0.01K / 0.30K / 18.50K
+
+  OBJS ACTIVE  USE OBJ SIZE  SLABS OBJ/SLAB CACHE SIZE NAME                   
+ 50116  50116 100%    0.12K    737       68      5896K kernfs_node_cache      
+ 30618  20456  66%    0.19K    729       42      5832K dentry                 
+ 29696  29020  97%    0.50K    464       64     14848K kmalloc-512            
+ 15960  13906  87%    0.55K    280       57      8960K inode_cache            
+ 13312  13312 100%    0.03K    104      128       416K kmalloc-32             
+ 10816   9669  89%    0.06K    169       64       676K kmalloc-64             
+  8448   8448 100%    0.02K     33      256       132K kmalloc-16             
+  7392   7392 100%    0.07K    132       56       528K Acpi-Operand           
+  6656   6656 100%    0.01K     13      512        52K kmalloc-8              
+  5544   5504  99%    0.19K    132       42      1056K kmalloc-192            
+  4794   4794 100%    0.04K     47      102       188K Acpi-Namespace         
+  4440   4261  95%    0.20K    111       40       888K vm_area_struct         
+  4420   4420 100%    0.05K     52       85       208K ftrace_event_field     
+  4158   4158 100%    0.09K     99       42       396K kmalloc-96             
+  3968   3113  78%    0.25K     62       64       992K kmalloc-256            
+  3672   3264  88%    0.04K     36      102       144K ext4_extent_status     
